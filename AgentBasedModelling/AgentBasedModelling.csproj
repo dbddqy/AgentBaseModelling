@@ -53,8 +53,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MyAgent.cs" />
+    <Compile Include="Cell.cs" />
+    <Compile Include="CellAgentSystem.cs" />
+    <Compile Include="CellEnvironment.cs" />
+    <Compile Include="CellGroup.cs" />
+    <Compile Include="WanderBehavior.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy $(TargetPath) C:\Users\77777777\AppData\Roaming\Grasshopper\Libraries</PostBuildEvent>
+  </PropertyGroup>
 </Project>
