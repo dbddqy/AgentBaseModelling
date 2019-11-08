@@ -57,6 +57,9 @@
     <Compile Include="CellAgentSystem.cs" />
     <Compile Include="CellEnvironment.cs" />
     <Compile Include="CellGroup.cs" />
+    <Compile Include="MergeBehavior.cs" />
+    <Compile Include="MySolver.cs" />
+    <Compile Include="Utility.cs" />
     <Compile Include="WanderBehavior.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -14,7 +14,20 @@ namespace AgentBasedModelling
     public class CellAgentSystem : AgentSystemBase
     {
         private double _gridSize;
-        public double GridSize { get { return this._gridSize; } }
+        public double GridSize => this._gridSize;
+        public int IterationCount = 0;
+        public bool IsActive
+        {
+            get
+            {
+                foreach (var agent in Agents)
+                {
+                    CellGroup cellGroup = agent as CellGroup;
+                    if (cellGroup.IsActive) return true;
+                }
+                return false;
+            }
+        }
 
         #region visualization
         public DataTree<Plane> CellPoses
@@ -26,7 +39,8 @@ namespace AgentBasedModelling
                 {
                     GH_Path pth = new GH_Path(i);
                     CellGroup cellGroup = this.Agents[i] as CellGroup;
-                    cellCenters.AddRange(cellGroup.GetPoses(this.GridSize), pth);
+                    foreach (var cell in cellGroup.Cells)
+                        cellCenters.Add(cellGroup.GetPose(cell.X, cell.Y), pth);
                 }
                 return cellCenters;
             }
@@ -42,26 +56,44 @@ namespace AgentBasedModelling
                     GH_Path pth = new GH_Path(i);
                     for (int j = 0; j < this.CellPoses.Branch(i).Count; j++)
                     {
-                        cells.Add(GetCellFromPose(this.CellPoses.Branch(i)[j]));
+                        cells.Add(GetCellFromPose(this.CellPoses.Branch(i)[j]), pth);
                     }
                 }
                 return cells;
-            } 
+            }
         }
 
-        public DataTree<bool> IsActive
+        public DataTree<Point3d> PlaceToConnect
+        {
+            get
+            {
+                DataTree<Point3d> places = new DataTree<Point3d>();
+                for (int i = 0; i < this.Agents.Count; i++)
+                {
+                    GH_Path pth = new GH_Path(i);
+                    CellGroup cellGroup = this.Agents[i] as CellGroup;
+                    places.AddRange(cellGroup.PlaceToConnect(), pth);
+                }
+
+                return places;
+            }
+        }
+
+        public DataTree<bool> State
         {
             get
             {
                 DataTree<bool> isActive = new DataTree<bool>();
+                int i = 0;
                 foreach (var agent in this.Agents)
                 {
-                    GH_Path pth = new GH_Path();
+                    GH_Path pth = new GH_Path(i);
                     CellGroup cellGroup = agent as CellGroup;
                     foreach (var cell in cellGroup.Cells)
                     {
-                        isActive.Add(cell.IsActive);
+                        isActive.Add(cell.IsActive, pth);
                     }
+                    i += 1;
                 }
                 return isActive;
             }
@@ -74,7 +106,7 @@ namespace AgentBasedModelling
             ps.Add(plane.PointAt(-this.GridSize * 0.5, -this.GridSize * 0.5 / Math.Sqrt(3)));
             ps.Add(plane.PointAt(this.GridSize * 0.5, -this.GridSize * 0.5 / Math.Sqrt(3)));
             ps.Add(plane.PointAt(0.0, this.GridSize / Math.Sqrt(3)));
-            return new PolylineCurve(ps);
+            return new PolylineCurve(ps); 
         }
 
         #endregion

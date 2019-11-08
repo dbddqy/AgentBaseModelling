@@ -14,16 +14,30 @@ namespace AgentBasedModelling
         public int Y;
         public bool IsActive;
 
-        public Cell(int x, int y, bool isActive)
+        public Cell(int x, int y)
         {
             X = x;
             Y = y;
-            IsActive = isActive;
+            IsActive = false;
+        }
+        public Cell(int x, int y, bool isActive) : this(x, y) { IsActive = isActive; }
+
+        public List<Cell> Neighbors
+        {
+            get
+            {
+                List<Cell> Neighbors = new List<Cell>();
+                Neighbors.Add(new Cell(X - 1, Y));
+                Neighbors.Add(new Cell(X + 1, Y));
+                if (X % 2 == 0)
+                    Neighbors.Add(new Cell(X + 1, Y - 1));
+                else
+                    Neighbors.Add(new Cell(X - 1, Y + 1));
+                return Neighbors;
+            }
         }
 
-        internal Point3d GetPosition(Plane pose)
-        {
-            throw new NotImplementedException();
-        }
+        public static bool operator ==(Cell a, Cell b) => (a.X == b.X) && (a.Y == b.Y);
+        public static bool operator !=(Cell a, Cell b) => (a.X != b.X) || (a.Y != b.Y);
     }
 }

@@ -1562,8 +1562,7 @@
             </summary>
             <param name="item_name">Name of item to retrieve.</param>
             <param name="basePath">Base path for relative path resolution.</param>
-            <returns>An array of path strings. If the resolved relative path is different
-            from the stored absolute path, an array of two strings will be returned [absolute, relative].</returns>
+            <returns>An array of path strings. If the resolved relative path is different from the stored absolute path, two strings will be returned.</returns>
             <exception cref="T:System.OverflowException">Thrown if the type conversion fails.</exception>
             <exception cref="T:System.InvalidCastException">Thrown if the type conversion is invalid.</exception>
             <exception cref="T:System.NullReferenceException">Thrown if the item with the specified name does not exist.</exception>
@@ -1576,8 +1575,7 @@
             <param name="item_name">Name of item to retrieve.</param>
             <param name="item_index">Index of item to retrieve.</param>
             <param name="basePath">Base path for relative path resolution.</param>
-            <returns>An array of path strings. If the resolved relative path is different
-            from the stored absolute path, an array of two strings will be returned [absolute, relative].</returns>
+            <returns>An array of path strings. If the resolved relative path is different from the stored absolute path, two strings will be returned.</returns>
             <exception cref="T:System.OverflowException">Thrown if the type conversion fails.</exception>
             <exception cref="T:System.InvalidCastException">Thrown if the type conversion is invalid.</exception>
             <exception cref="T:System.NullReferenceException">Thrown if the item with the specified name and index does not exist.</exception>
