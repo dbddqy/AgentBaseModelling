@@ -21,7 +21,7 @@ namespace AgentBasedModelling
         //    cellGroup.Move(t, r);
         //}
 
-        public void ExecutWithSystem(CellGroup cellGroup, CellAgentSystem cellSystem)
+        public virtual void ExecutWithSystem(CellGroup cellGroup, CellAgentSystem cellSystem)
         {
             Vector3d t = new Vector3d(rd.NextDouble() - 0.5, rd.NextDouble() - 0.5, 0.0);
             double r = (rd.NextDouble() - 0.5) * Math.PI * 0.05;

@@ -93,7 +93,7 @@ namespace AgentBasedModelling
             return pose;
         }
         public Plane GetPose(Cell cell) => this.GetPose(cell.X, cell.Y);
-        internal void Move(Vector3d t, Double r)
+        public void Move(Vector3d t, Double r)
         {
             if (!this.IsActive) return;
             this.Pose.Translate(t * this.Speed);
